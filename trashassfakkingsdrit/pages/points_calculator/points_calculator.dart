@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gabong_v1/pages/points_calculator/calculator_button_array.dart';
+import 'calculator_button_array.dart';
 import '../../bloc.navigation_bloc/navigation_bloc.dart';
 
 class PointsCalculatorPage extends StatefulWidget implements NavigationStates {

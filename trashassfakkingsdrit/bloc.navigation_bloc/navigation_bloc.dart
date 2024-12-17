@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:gabong_v1/pages/points_calculator/points_calculator.dart';
-import 'package:gabong_v1/pages/rules.dart';
+import '../pages/points_calculator/points_calculator.dart';
+import '../pages/rules.dart';
 import '../pages/play_gabong.dart';
 
 enum NavigationEvents {
@@ -22,7 +22,7 @@ class NavigationBloc extends Bloc<NavigationEvents, NavigationStates> {
         yield const PlayGabong();
         break;
       case NavigationEvents.pointsCalculatorClickedEvent:
-        yield PointsCalculatorPage();
+        yield const PointsCalculatorPage();
         break;
       case NavigationEvents.rulesClickedEvent:
         yield const RulesPage();
