@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../globals.dart' as globals;
+import '../../globals.dart' as globals;
 import 'package:gabong_v1/widgets/input_field.dart';
 import 'package:gabong_v1/widgets/menu_button.dart';
 
@@ -23,24 +23,28 @@ class _HostScreenState extends State<HostScreen> {
   @override
   void initState() {
     super.initState();
-    _nameController.addListener(_checkName);
+    _nameController.addListener(_checkInputs);
   }
 
-  void _checkName() {
+  void _checkInputs() {
     setState(() {
-      _isButtonEnabled = _nameController.text.isNotEmpty;
+      _isButtonEnabled = _nameController.text.isNotEmpty &&
+          ((_selectedOption == 'Point Limit' && _pointLimit > 0) ||
+              (_selectedOption == 'Round Limit' && _roundLimit > 0));
     });
   }
 
   void _setPointLimit(String value) {
     setState(() {
       _pointLimit = int.tryParse(value) ?? 0;
+      _checkInputs();
     });
   }
 
   void _setRoundLimit(String value) {
     setState(() {
       _roundLimit = int.tryParse(value) ?? 0;
+      _checkInputs();
     });
   }
 
@@ -86,6 +90,7 @@ class _HostScreenState extends State<HostScreen> {
                     onChanged: (String? value) {
                       setState(() {
                         _selectedOption = value!;
+                        _checkInputs();
                       });
                     },
                     activeColor: theme.colorScheme.tertiary, // Set the active color to tertiary
@@ -107,6 +112,7 @@ class _HostScreenState extends State<HostScreen> {
                     onChanged: (String? value) {
                       setState(() {
                         _selectedOption = value!;
+                        _checkInputs();
                       });
                     },
                     activeColor: theme.colorScheme.tertiary, // Set the active color to tertiary
@@ -128,7 +134,7 @@ class _HostScreenState extends State<HostScreen> {
               onPressed: _isButtonEnabled
                   ? () {
                       globals.playerName = _nameController.text;
-                      Navigator.pushNamed(context, '/hostGame');
+                      Navigator.pushNamed(context, '/waitingHostScreen');
                     }
                   : null,
               enabled: _isButtonEnabled,

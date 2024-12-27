@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "371258350307",
+    "project_id": "gabong-12117",
+    "storage_bucket": "gabong-12117.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371258350307:android:0f2f8ff99e674eb90083d6",
+        "android_client_info": {
+          "package_name": "com.gabong.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1tTgKabNb8Lv0n_snHxOM_fluDLL7DC8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

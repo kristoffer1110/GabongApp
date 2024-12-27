@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:gabong_v1/screens/homescreen.dart';
-import 'package:gabong_v1/screens/host.dart';
-
+import 'package:gabong_v1/screens/host/host.dart';
+import 'package:gabong_v1/screens/join/join.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 const Color gabongGreen = Color(0xFF216624); // Replace with your actual color value
 const Color gold = Color(0xFFFFD700);
 const Color black = Colors.black;
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -42,6 +48,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/home': (context) => const HomeScreen(),
         '/host': (context) => const HostScreen(),
+        '/join': (context) => const JoinScreen(),
       },
     );
   }
