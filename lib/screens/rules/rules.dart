@@ -8,7 +8,7 @@ class RulesScreen extends StatefulWidget {
 }
 
 class _RulesScreenState extends State<RulesScreen> {
-  final List<bool> _isExpanded = List<bool>.filled(6,false);
+  final List<bool> _isExpanded = List<bool>.filled(7,false);
 
   @override
   Widget build(BuildContext context) {
@@ -201,6 +201,23 @@ class _RulesScreenState extends State<RulesScreen> {
               Text('4. Players that show emotion at the end (3 Card Penalty when ending, 5 Card Penalty when Gabong)', style: TextStyle(fontSize: 18)),
               SizedBox(height: 16),
               Text('5. Players that play to slow (1 Card Penalty)', style: TextStyle(fontSize: 18)),
+            ],
+          ),
+          _buildExpansionTile(
+            title: 'Counting Points',
+            index: 6,
+            children: const [
+              Text('4,5,6,7,9,10 = 5 Points', style: TextStyle(fontSize: 18)),
+              SizedBox(height: 16),
+              Text('J,Q = 10 Points', style: TextStyle(fontSize: 18)),
+              SizedBox(height: 16),
+              Text('A = 15 Points', style: TextStyle(fontSize: 18)),
+              SizedBox(height: 16),
+              Text('3,K = 20 Points', style: TextStyle(fontSize: 18)),
+              SizedBox(height: 16),
+              Text('8 = 50 Points', style: TextStyle(fontSize: 18)),
+              SizedBox(height: 16),
+              Text('2 = This is worth 5 points + when all the points are counted, the total sum should be multiplied by 2. If you have more wos, the total sum should be multiplied by two once per two.', style: TextStyle(fontSize: 18)),
             ],
           ),
         ],
