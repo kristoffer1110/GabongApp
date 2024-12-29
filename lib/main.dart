@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gabong_v1/screens/homescreen.dart';
 import 'package:gabong_v1/screens/host/host.dart';
 import 'package:gabong_v1/screens/join/join.dart';
+import 'package:gabong_v1/screens/rules/rules.dart';
 import 'package:gabong_v1/screens/host/waiting_for_players.dart';
 import 'package:gabong_v1/globals.dart' as globals;
 import 'package:firebase_core/firebase_core.dart';
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
           tertiary: black,
         ),
         appBarTheme: const AppBarTheme(
-          backgroundColor: gabongGreen,
+          backgroundColor: main1,
         ),
       ),
       home: const HomeScreen(),
