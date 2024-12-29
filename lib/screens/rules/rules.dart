@@ -54,7 +54,7 @@ class _RulesScreenState extends State<RulesScreen> {
             title: 'Special Cards',
             index: 1,
             children: const [
-              Text('2', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                Text('Card #2', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, decoration: TextDecoration.underline)),
               SizedBox(height: 16),
               Text('If a player places down a 2 card, the next players must also put down a 2 card. If not draw the sum of 2 cards put down', style: TextStyle(fontSize: 18)),
               SizedBox(height: 16),
@@ -64,15 +64,15 @@ class _RulesScreenState extends State<RulesScreen> {
               SizedBox(height: 16),
               Text('2. If a player "gabongs" then the round is over and no one needs to draw', style: TextStyle(fontSize: 18)),
               SizedBox(height: 16),
-              Text('King', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              Text('King', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, decoration: TextDecoration.underline)),
               SizedBox(height: 16),
               Text('Changes playing direction', style: TextStyle(fontSize: 18)),
               SizedBox(height: 16),
-              Text('3', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              Text('Card #3', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, decoration: TextDecoration.underline)),
               SizedBox(height: 16),
               Text('Jumps over one* person', style: TextStyle(fontSize: 18)),
               SizedBox(height: 16),
-              Text('Ace, Spade-2 and Diamonds-10', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              Text('Ace, Spade-2 and Diamonds-10', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, decoration: TextDecoration.underline)),
               SizedBox(height: 16),
               Text('Has different values. Comes back to this part in Gabong', style: TextStyle(fontSize: 18)),
 
@@ -87,7 +87,7 @@ class _RulesScreenState extends State<RulesScreen> {
             title: 'Special Rules',
             index: 2,
             children: const [
-              Text('Gabong', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              Text('Gabong', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, decoration: TextDecoration.underline)),
               SizedBox(height: 16),
               Text('If the sum of all the cards in a players hand* is the same as the top card in play**, the player may lay down all the cards and say gabong.', style: TextStyle(fontSize: 18)),
               SizedBox(height: 16),
@@ -98,7 +98,7 @@ class _RulesScreenState extends State<RulesScreen> {
               Text('2. The player cannot say anything that deviates from the word gabong', style: TextStyle(fontSize: 18)),
               
               SizedBox(height: 16),
-              Text('Smacking', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              Text('Smacking', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, decoration: TextDecoration.underline)),
               SizedBox(height: 16),
               Text('Gabong is a game played with a minimum of 2 decks of cards. This means that at any given time there are at least 2 identical cards*** in play. Identical cards can always be placed on top of each other and is the most fundamental rule in Gabong. There are no exceptions here.', style: TextStyle(fontSize: 18)),
               
@@ -121,7 +121,7 @@ class _RulesScreenState extends State<RulesScreen> {
             title: 'Gameplay',
             index: 3,
             children: const [
-              Text('Start and End of a game', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              Text('Start and End of a game', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, decoration: TextDecoration.underline)),
               SizedBox(height: 16),
               Text('A round starts when the Gabon Master has dealt his cards. The two players sitting on either side of the Gabon Master then "battle"* to be the first to fold. The one who folds first determines the direction of the game.', style: TextStyle(fontSize: 18)),
               SizedBox(height: 16),
@@ -132,12 +132,12 @@ class _RulesScreenState extends State<RulesScreen> {
               Text('It is not allowed to end with an 8', style: TextStyle(fontSize: 18)),
               
               SizedBox(height: 16),
-              Text('Speed', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              Text('Speed', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, decoration: TextDecoration.underline)),
               SizedBox(height: 16),
               Text('Gabong is a fast-paced game, and each player has between about 2 seconds to make their move**. The Gabong master is responsible for enforcing this rule and gives cards to players who are too slow. This then counts as a move, and it is the next players turn.', style: TextStyle(fontSize: 18)),
               
               SizedBox(height: 16),
-              Text('Emotions', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              Text('Emotions', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, decoration: TextDecoration.underline)),
               SizedBox(height: 16),
               Text('It is not allowed to show emotions when finishing a game. This rule may seem strange, but it is there for a reason. If one or more players continue to play after one or more players have finished, they will be given a penalty card. It is therefore a point that one should not show strong emotions when finishing.', style: TextStyle(fontSize: 18)),
               
@@ -164,7 +164,7 @@ class _RulesScreenState extends State<RulesScreen> {
             title: 'Gabong Master',
             index: 4,
             children: const [
-              Text('How to become a Gabong Master', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              Text('How to become a Gabong Master', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, decoration: TextDecoration.underline)),
               SizedBox(height: 16),
               Text('A person can become Gabong Master in 3 different ways:', style: TextStyle(fontSize: 18)),
               SizedBox(height: 16),
@@ -175,7 +175,7 @@ class _RulesScreenState extends State<RulesScreen> {
               Text('3. If a Gabong Master must leave the game, the master can delegate their role to another player*', style: TextStyle(fontSize: 18)),
               
               SizedBox(height: 16),
-              Text('Distribute Cards', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              Text('Distribute Cards', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, decoration: TextDecoration.underline)),
               SizedBox(height: 16),
               Text('The Gabong Master must choose a deck of cards before he starts dealing. If this deck is the exact amount of cards to be dealt, the Gabong Master receives -50 points. If he chooses too few cards, he is dealt the difference as penalty cards.', style: TextStyle(fontSize: 18)),
               
@@ -190,7 +190,7 @@ class _RulesScreenState extends State<RulesScreen> {
             title: 'Penalty Cards',
             index: 5,
             children: const [
-              Text('Gabong Master can give out penalty cards for:', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+              Text('Gabong Master can give out penalty cards for:', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, decoration: TextDecoration.underline)),
               SizedBox(height: 16),
               Text('1. Players that touch their cards before the Gabong Master (1 Card Penalty)', style: TextStyle(fontSize: 18)),
               SizedBox(height: 16),
