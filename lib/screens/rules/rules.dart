@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../globals.dart' as globals;
 
 class RulesScreen extends StatefulWidget {
   const RulesScreen({super.key});
@@ -9,7 +8,7 @@ class RulesScreen extends StatefulWidget {
 }
 
 class _RulesScreenState extends State<RulesScreen> {
-  final List<bool> _isExpanded = [false, false, false];
+  final List<bool> _isExpanded = List<bool>.filled(6,false);
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +52,7 @@ class _RulesScreenState extends State<RulesScreen> {
           ),
           _buildExpansionTile(
             title: 'Special Cards',
-            index: 0,
+            index: 1,
             children: const [
               Text('2', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
               SizedBox(height: 16),
@@ -86,7 +85,7 @@ class _RulesScreenState extends State<RulesScreen> {
           ),
           _buildExpansionTile(
             title: 'Special Rules',
-            index: 0,
+            index: 2,
             children: const [
               Text('Gabong', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
               SizedBox(height: 16),
@@ -120,7 +119,7 @@ class _RulesScreenState extends State<RulesScreen> {
           ),
           _buildExpansionTile(
             title: 'Gameplay',
-            index: 0,
+            index: 3,
             children: const [
               Text('Start and End of a game', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
               SizedBox(height: 16),
@@ -163,7 +162,7 @@ class _RulesScreenState extends State<RulesScreen> {
           ),
           _buildExpansionTile(
             title: 'Gabong Master',
-            index: 0,
+            index: 4,
             children: const [
               Text('How to become a Gabong Master', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
               SizedBox(height: 16),
@@ -187,9 +186,9 @@ class _RulesScreenState extends State<RulesScreen> {
               ),
             ],
           ),
-                    _buildExpansionTile(
+          _buildExpansionTile(
             title: 'Penalty Cards',
-            index: 0,
+            index: 5,
             children: const [
               Text('Gabong Master can give out penalty cards for:', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
               SizedBox(height: 16),
