@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gabong_v1/screens/homescreen.dart';
 import 'package:gabong_v1/screens/host/host.dart';
 import 'package:gabong_v1/screens/join/join.dart';
+import 'package:gabong_v1/screens/host/waiting_for_players.dart';
+import 'package:gabong_v1/globals.dart' as globals;
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -42,13 +44,18 @@ class MyApp extends StatelessWidget {
           primary: gabongGreen,
           secondary: gold,
           tertiary: black,
-        )
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: gabongGreen,
+        ),
       ),
       home: const HomeScreen(),
       routes: {
         '/home': (context) => const HomeScreen(),
         '/host': (context) => const HostScreen(),
         '/join': (context) => const JoinScreen(),
+        '/waitingForPlayers': (context) => WaitingForPlayers(gameID: globals.gameID),
+
       },
     );
   }

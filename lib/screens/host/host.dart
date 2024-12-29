@@ -1,8 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../globals.dart' as globals;
 import 'package:gabong_v1/widgets/input_field.dart';
 import 'package:gabong_v1/widgets/menu_button.dart';
-
+import 'dart:math';
 
 class HostScreen extends StatefulWidget {
   const HostScreen({super.key});
@@ -48,6 +49,28 @@ class _HostScreenState extends State<HostScreen> {
     });
   }
 
+  String _generateGameID() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    final rnd = Random();
+    return String.fromCharCodes(Iterable.generate(4, (_) => chars.codeUnitAt(rnd.nextInt(chars.length))));
+  }
+
+  Future<void> _hostGame() async {
+    final gameID = _generateGameID();
+    final playerName = _nameController.text;
+
+    await FirebaseFirestore.instance.collection('games').doc(gameID).set({
+      'host' : playerName,
+      'pointLimit' : _selectedOption == 'Point Limit' ? _pointLimit : null,
+      'roundLimit' : _selectedOption == 'Round Limit' ? _roundLimit : null,
+      'players' : [playerName],
+    });
+
+    globals.playerName = playerName;
+    globals.gameID = gameID;
+    Navigator.pushNamed(context, '/waitingForPlayers', arguments: gameID);
+  }
+
   @override
   void dispose() {
     _nameController.dispose();
@@ -60,6 +83,9 @@ class _HostScreenState extends State<HostScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+      ),
       backgroundColor: theme.colorScheme.primary,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -131,12 +157,7 @@ class _HostScreenState extends State<HostScreen> {
             const SizedBox(height: 20),
             MenuButton(
               label: 'Host Game',
-              onPressed: _isButtonEnabled
-                  ? () {
-                      globals.playerName = _nameController.text;
-                      Navigator.pushNamed(context, '/waitingHostScreen');
-                    }
-                  : null,
+              onPressed: _isButtonEnabled ? _hostGame : null,
               enabled: _isButtonEnabled,
             ),
           ],
