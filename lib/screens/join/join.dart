@@ -40,6 +40,9 @@ class _JoinScreenState extends State<JoinScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: true,
+      ),
       backgroundColor: theme.colorScheme.primary,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
