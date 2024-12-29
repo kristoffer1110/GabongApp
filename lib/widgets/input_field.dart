@@ -21,45 +21,42 @@ class InputField extends StatelessWidget {
     final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Material(
-        elevation: 8.0,
-        child: TextField(
-          controller: controller,
-          keyboardType: keyboardType,
-          obscureText: obscureText,
-          onChanged: onChanged, // Pass the onChanged callback
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: theme.colorScheme.secondary, // Use secondary color for background
-            labelText: labelText,
-            labelStyle: TextStyle(
-              color: theme.colorScheme.tertiary, // Use tertiary color for label text
-            ),
-            border: OutlineInputBorder(
-              borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-              borderSide: BorderSide(
-                color: theme.colorScheme.tertiary, // Use tertiary color for border
-                width: 2,
-              ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-              borderSide: BorderSide(
-                color: theme.colorScheme.tertiary, // Use tertiary color for enabled border
-                width: 2,
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-              borderSide: BorderSide(
-                color: theme.colorScheme.tertiary, // Use tertiary color for focused border
-                width: 2,
-              ),
+      child: TextField(
+        controller: controller,
+        keyboardType: keyboardType,
+        obscureText: obscureText,
+        onChanged: onChanged, // Pass the onChanged callback
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: theme.colorScheme.secondary, // Use secondary color for background
+          labelText: labelText,
+          labelStyle: TextStyle(
+            color: theme.colorScheme.tertiary, // Use tertiary color for label text
+          ),
+          border: OutlineInputBorder(
+            borderRadius: const BorderRadius.all(Radius.circular(30.0)), // Change to oval shape
+            borderSide: BorderSide(
+              color: theme.colorScheme.tertiary, // Use tertiary color for border
+              width: 2,
             ),
           ),
-          style: TextStyle(
-            color: theme.colorScheme.tertiary, // Use tertiary color for input text
+          enabledBorder: OutlineInputBorder(
+            borderRadius: const BorderRadius.all(Radius.circular(30.0)), // Change to oval shape
+            borderSide: BorderSide(
+              color: theme.colorScheme.tertiary, // Use tertiary color for enabled border
+              width: 2,
+            ),
           ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: const BorderRadius.all(Radius.circular(30.0)), // Change to oval shape
+            borderSide: BorderSide(
+              color: theme.colorScheme.tertiary, // Use tertiary color for focused border
+              width: 2,
+            ),
+          ),
+        ),
+        style: TextStyle(
+          color: theme.colorScheme.tertiary, // Use tertiary color for input text
         ),
       ),
     );

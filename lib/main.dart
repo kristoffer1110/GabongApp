@@ -10,6 +10,10 @@ import 'firebase_options.dart';
 const Color gabongGreen = Color(0xFF216624); // Replace with your actual color value
 const Color gold = Color(0xFFFFD700);
 const Color black = Colors.black;
+const Color main1 = Color(0xFF50C878); // Emerald Green
+const Color secondary1 = Color(0xFF2E5090); // YinMin Blue
+const Color secondary2 = Color(0xFFFFA500); // Web Orange
+const Color background1 = Color(0xFFF64A8A); // French Rose
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,8 +45,8 @@ class MyApp extends StatelessWidget {
       title: 'Gabong Calc',
       theme: ThemeData(
         colorScheme: const ColorScheme.dark(
-          primary: gabongGreen,
-          secondary: gold,
+          primary: main1,
+          secondary: secondary2,
           tertiary: black,
         ),
         appBarTheme: const AppBarTheme(
@@ -54,8 +58,8 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomeScreen(),
         '/host': (context) => const HostScreen(),
         '/join': (context) => const JoinScreen(),
+        '/rules': (context) => const RulesScreen(),
         '/waitingForPlayers': (context) => WaitingForPlayers(gameID: globals.gameID),
-
       },
     );
   }
