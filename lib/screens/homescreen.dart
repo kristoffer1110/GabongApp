@@ -14,11 +14,15 @@ class HomeScreen extends StatelessWidget {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
+            child: Image.asset('assets/gabong_logo.png', height: 250),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
             child: Text(
-              'GABONG',
+              'GABONG!',
               style: TextStyle(
                 fontWeight: FontWeight.w900,
-                fontSize: 30,
+                fontSize: 50,
                 color: Theme.of(context).colorScheme.tertiary,
               ),
             ),
