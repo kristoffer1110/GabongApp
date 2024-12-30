@@ -56,19 +56,22 @@ class _HostScreenState extends State<HostScreen> {
   }
 
   Future<void> _hostGame() async {
-    final gameID = _generateGameID();
+    final pin = _generateGameID();
     final playerName = _nameController.text;
 
-    await FirebaseFirestore.instance.collection('games').doc(gameID).set({
-      'host' : playerName,
-      'pointLimit' : _selectedOption == 'Point Limit' ? _pointLimit : null,
-      'roundLimit' : _selectedOption == 'Round Limit' ? _roundLimit : null,
-      'players' : [playerName],
+    await FirebaseFirestore.instance.collection('games').doc(pin).set({
+      'host': playerName,
+      'pointLimit': _selectedOption == 'Point Limit' ? _pointLimit : null,
+      'roundLimit': _selectedOption == 'Round Limit' ? _roundLimit : null,
+      'players': [playerName],
     });
 
     globals.playerName = playerName;
-    globals.gameID = gameID;
-    Navigator.pushNamed(context, '/waitingForPlayers', arguments: gameID);
+    Navigator.pushNamed(
+      context,
+      '/waitingForPlayers',
+      arguments: {'gameID': pin, 'isHost': true},
+    );
   }
 
   @override

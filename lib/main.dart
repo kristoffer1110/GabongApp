@@ -3,7 +3,6 @@ import 'package:gabong_v1/screens/homescreen.dart';
 import 'package:gabong_v1/screens/host/host.dart';
 import 'package:gabong_v1/screens/join/join.dart';
 import 'package:gabong_v1/screens/host/waiting_for_players.dart';
-import 'package:gabong_v1/globals.dart' as globals;
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -54,8 +53,10 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomeScreen(),
         '/host': (context) => const HostScreen(),
         '/join': (context) => const JoinScreen(),
-        '/waitingForPlayers': (context) => WaitingForPlayers(gameID: globals.gameID),
-
+        '/waitingForPlayers': (context) {
+          final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+          return WaitingForPlayers(gameID: args['gameID'], isHost: args['isHost']);
+        },
       },
     );
   }

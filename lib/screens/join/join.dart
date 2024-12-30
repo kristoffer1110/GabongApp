@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../globals.dart' as globals;
-import 'package:gabong_v1/widgets/input_field.dart';
-import 'package:gabong_v1/widgets/menu_button.dart';
-
+import '../../widgets/input_field.dart';
+import '../../widgets/menu_button.dart';
 
 class JoinScreen extends StatefulWidget {
   const JoinScreen({super.key});
@@ -13,26 +13,53 @@ class JoinScreen extends StatefulWidget {
 
 class _JoinScreenState extends State<JoinScreen> {
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _gameIDcontroller = TextEditingController();
+  final TextEditingController _gameIDController = TextEditingController();
   bool _isButtonEnabled = false;
 
   @override
   void initState() {
     super.initState();
     _nameController.addListener(_checkInputs);
+    _gameIDController.addListener(_checkInputs);
   }
 
   void _checkInputs() {
     setState(() {
-      _isButtonEnabled = _nameController.text.isNotEmpty &&
-          (_gameIDcontroller.text.length == 4);
+      _isButtonEnabled = _nameController.text.isNotEmpty && _gameIDController.text.isNotEmpty;
     });
+  }
+
+  Future<void> _joinGame() async {
+    final gameID = _gameIDController.text;
+    final playerName = _nameController.text;
+
+    final gameDoc = await FirebaseFirestore.instance.collection('games').doc(gameID).get();
+
+    if (gameDoc.exists) {
+      // Add player to the game
+      await FirebaseFirestore.instance.collection('games').doc(gameID).update({
+        'players': FieldValue.arrayUnion([playerName]),
+      });
+
+      globals.playerName = playerName;
+      globals.gameID = gameID;
+      Navigator.pushNamed(
+        context, 
+        '/waitingForPlayers', 
+        arguments: {'gameID': gameID, 'isHost': false},
+      );
+    } else {
+      // Show error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Game not found')),
+      );
+    }
   }
 
   @override
   void dispose() {
     _nameController.dispose();
-    _gameIDcontroller.dispose();
+    _gameIDController.dispose();
     super.dispose();
   }
 
@@ -41,7 +68,8 @@ class _JoinScreenState extends State<JoinScreen> {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: true,
+        title: const Text('Join Game'),
+        backgroundColor: theme.colorScheme.primary,
       ),
       backgroundColor: theme.colorScheme.primary,
       body: Padding(
@@ -49,36 +77,20 @@ class _JoinScreenState extends State<JoinScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'Join Game',
-              style: TextStyle(
-                fontWeight: FontWeight.w900,
-                fontSize: 30,
-                color: Colors.white,
-              ),
-            ),
-            const SizedBox(height: 20),
             InputField(
               controller: _nameController,
               labelText: 'Enter your name',
-              onChanged: (_) => _checkInputs(),
             ),
             const SizedBox(height: 20),
             InputField(
-              controller: _gameIDcontroller,
+              controller: _gameIDController,
               labelText: 'Enter Game ID',
               onChanged: (_) => _checkInputs(),
             ),
             const SizedBox(height: 20),
             MenuButton(
               label: 'Join Game',
-              onPressed: _isButtonEnabled
-                  ? () {
-                      globals.playerName = _nameController.text;
-                      globals.gameID = _gameIDcontroller.text;
-                      Navigator.pushNamed(context, '/waitingJoinScreen');
-                    }
-                  : null,
+              onPressed: _isButtonEnabled ? _joinGame : null,
               enabled: _isButtonEnabled,
             ),
           ],
