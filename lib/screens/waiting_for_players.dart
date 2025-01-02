@@ -8,6 +8,17 @@ class WaitingForPlayers extends StatelessWidget {
 
   const WaitingForPlayers({super.key, required this.gameID, required this.isHost});
 
+  void _startGame(BuildContext context) async {
+    await FirebaseFirestore.instance.collection('games').doc(gameID).update({
+      'gameStarted' : true,
+    });
+    Navigator.pushNamed(
+      context, 
+      '/game', 
+      arguments: gameID
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -37,6 +48,13 @@ class WaitingForPlayers extends StatelessWidget {
 
           final gameData = snapshot.data!.data() as Map<String, dynamic>;
           final players = gameData['players'] as List<dynamic>;
+          final gameStarted = gameData['gameStarted'] as bool? ?? false;
+
+          if (gameStarted) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Navigator.pushNamed(context, '/game', arguments: gameID);
+            });
+          }
 
           return Padding(
             padding: const EdgeInsets.all(16.0),
@@ -93,13 +111,10 @@ class WaitingForPlayers extends StatelessWidget {
                 const SizedBox(height: 20),
                 MenuButton(
                   label: 'Start Game',
-                  onPressed: players.length >= 2
-                      ? () {
-                          // Navigate to the game screen
-                          Navigator.pushNamed(context, '/game', arguments: gameID);
-                        }
+                  onPressed: players.isNotEmpty && isHost
+                      ? () => _startGame(context)
                       : null,
-                  enabled: players.length >= 2 && isHost,
+                  enabled: players.isNotEmpty && isHost,
                 ),
               ],
             ),

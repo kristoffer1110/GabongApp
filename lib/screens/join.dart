@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../globals.dart' as globals;
-import '../../widgets/input_field.dart';
-import '../../widgets/menu_button.dart';
+import '../globals.dart' as globals;
+import '../widgets/input_field.dart';
+import '../widgets/menu_button.dart';
 
 class JoinScreen extends StatefulWidget {
   const JoinScreen({super.key});
@@ -38,7 +38,7 @@ class _JoinScreenState extends State<JoinScreen> {
     if (gameDoc.exists) {
       // Add player to the game
       await FirebaseFirestore.instance.collection('games').doc(gameID).update({
-        'players': FieldValue.arrayUnion([playerName]),
+        'players.$playerName': FieldValue.arrayUnion([]),
       });
 
       globals.playerName = playerName;
