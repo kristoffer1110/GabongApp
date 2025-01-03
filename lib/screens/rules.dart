@@ -14,16 +14,12 @@ class _RulesScreenState extends State<RulesScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
+
       backgroundColor: theme.colorScheme.primary,
       appBar: AppBar(
+        automaticallyImplyLeading: true,
         backgroundColor: theme.colorScheme.primary,
         title: const Text('Rules Page'),
-        leading: IconButton(
-          icon: const Icon(Icons.home),
-          onPressed: () {
-            Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-          },
-        ),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16.0),

@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import '../globals.dart' as globals;
 import 'package:gabong_v1/widgets/input_field.dart';
 import 'package:gabong_v1/widgets/menu_button.dart';
 import 'dart:math';
@@ -61,19 +60,21 @@ class _HostScreenState extends State<HostScreen> {
 
     await FirebaseFirestore.instance.collection('games').doc(pin).set({
       'host': playerName,
-      'pointLimit': _selectedOption == 'Point Limit' ? _pointLimit : null,
-      'roundLimit': _selectedOption == 'Round Limit' ? _roundLimit : null,
       'players': [playerName],
       'scores': {playerName: []},
+
+      'gameMode' : _selectedOption,
+      'pointLimit': _selectedOption == 'Point Limit' ? _pointLimit : null,
+      'roundLimit': _selectedOption == 'Round Limit' ? _roundLimit : null,
+  
       'currentRound': 1,
       'gameStarted': false,
     });
 
-    globals.playerName = playerName;
     Navigator.pushNamed(
       context,
       '/waitingForPlayers',
-      arguments: {'gameID': pin, 'isHost': true},
+      arguments: {'gameID': pin, 'isHost': true, 'playerName': playerName},
     );
   }
 

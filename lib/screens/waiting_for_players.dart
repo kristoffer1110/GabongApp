@@ -5,8 +5,9 @@ import 'package:gabong_v1/widgets/menu_button.dart';
 class WaitingForPlayers extends StatelessWidget {
   final String gameID;
   final bool isHost;
+  final String playerName;
 
-  const WaitingForPlayers({super.key, required this.gameID, required this.isHost});
+  const WaitingForPlayers({super.key, required this.gameID, required this.isHost, required this.playerName});
 
   void _startGame(BuildContext context) async {
     await FirebaseFirestore.instance.collection('games').doc(gameID).update({
@@ -15,7 +16,7 @@ class WaitingForPlayers extends StatelessWidget {
     Navigator.pushNamed(
       context, 
       '/game', 
-      arguments: gameID
+      arguments: {'gameID': gameID, 'isHost': isHost, 'playerName': playerName},
     );
   }
 
@@ -52,7 +53,11 @@ class WaitingForPlayers extends StatelessWidget {
 
           if (gameStarted) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              Navigator.pushNamed(context, '/game', arguments: gameID);
+              Navigator.pushNamed(
+                context, 
+                '/game', 
+                arguments: {'gameID' : gameID, 'isHost' : isHost, 'playerName' : playerName},
+                );
             });
           }
 

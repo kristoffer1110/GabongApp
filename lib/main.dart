@@ -39,7 +39,6 @@ ThemeData get theme {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -62,11 +61,11 @@ class MyApp extends StatelessWidget {
         '/rules': (context) => const RulesScreen(),
         '/waitingForPlayers': (context) {
           final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-          return WaitingForPlayers(gameID: args['gameID'], isHost: args['isHost']);
+          return WaitingForPlayers(gameID: args['gameID'], isHost: args['isHost'], playerName: args['playerName']);
         },
         '/game': (context) {
-          final args = ModalRoute.of(context)!.settings.arguments as String;
-          return GameScreen(gameID: args);
+          final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+          return GameScreen(gameID: args['gameID'], isHost: args['isHost'], playerName: args['playerName']);
         }
       },
     );

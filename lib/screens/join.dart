@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../globals.dart' as globals;
 import '../widgets/input_field.dart';
 import '../widgets/menu_button.dart';
 
@@ -36,20 +35,17 @@ class _JoinScreenState extends State<JoinScreen> {
     final gameDoc = await FirebaseFirestore.instance.collection('games').doc(gameID).get();
 
     if (gameDoc.exists) {
-      // Add player to the game
       await FirebaseFirestore.instance.collection('games').doc(gameID).update({
-        'players.$playerName': FieldValue.arrayUnion([]),
+        'players': FieldValue.arrayUnion([playerName]),
+        'scores.$playerName': [],
       });
 
-      globals.playerName = playerName;
-      globals.gameID = gameID;
       Navigator.pushNamed(
         context, 
         '/waitingForPlayers', 
-        arguments: {'gameID': gameID, 'isHost': false},
+        arguments: {'gameID': gameID, 'isHost': false, 'playerName': playerName},
       );
     } else {
-      // Show error message
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Game not found')),
       );
