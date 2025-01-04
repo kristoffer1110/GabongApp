@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Image.asset('../../assets/gabong_logo.png', height: 250),
+            child: Image.asset('assets/gabong_logo.png', height: 250),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
