@@ -4,7 +4,7 @@ import 'package:gabong_v1/screens/homescreen.dart';
 import 'package:gabong_v1/screens/host.dart';
 import 'package:gabong_v1/screens/join.dart';
 import 'package:gabong_v1/screens/rules.dart';
-import 'package:gabong_v1/screens/points_calculator/points_calculator.dart';
+import 'package:gabong_v1/screens/points_calculator.dart';
 import 'package:gabong_v1/screens/waiting_for_players.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
