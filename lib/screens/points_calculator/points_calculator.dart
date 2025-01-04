@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gabong_v1/main.dart';
+import 'package:gabong_v1/widgets/input_field.dart';
+import 'package:gabong_v1/widgets/menu_button.dart';
 
 class PointsCalculatorScreen extends StatefulWidget {
   const PointsCalculatorScreen({Key? key}) : super(key: key);
@@ -11,21 +13,30 @@ class PointsCalculatorScreen extends StatefulWidget {
 class _PointsCalculatorScreenState extends State<PointsCalculatorScreen> {
   final TextEditingController _controller = TextEditingController();
   int totalPoints = 0;
+  int twoCardCount = 0;
 
   final Map<String, int> cardPoints = {
-    '4': 5, '5': 5, '6': 5, '7': 5, '9': 5, '10': 5,
-    'J': 10, 'Q': 10,
     'A': 15,
-    '3': 20, 'K': 20,
+    '2': 5, // Special case handled separately
+    '3': 20,
+    '4': 5,
+    '5': 5,
+    '6': 5,
+    '7': 5,
     '8': 50,
-    '2': 0, // Special case handled separately
+    '9': 5,
+    '10': 5,
+    'J': 10,
+    'Q': 10,
+    'K': 20,
   };
 
   void _addCard(String card) {
     setState(() {
       _controller.text += card;
       if (card == '2') {
-        totalPoints *= 2;
+        totalPoints += 5;
+        twoCardCount++;
       } else {
         totalPoints += cardPoints[card] ?? 0;
       }
@@ -38,7 +49,8 @@ class _PointsCalculatorScreenState extends State<PointsCalculatorScreen> {
         String lastCard = _controller.text.substring(_controller.text.length - 1);
         _controller.text = _controller.text.substring(0, _controller.text.length - 1);
         if (lastCard == '2') {
-          totalPoints = (totalPoints / 2).round();
+          totalPoints -= 5;
+          twoCardCount--;
         } else {
           totalPoints -= cardPoints[lastCard] ?? 0;
         }
@@ -50,7 +62,16 @@ class _PointsCalculatorScreenState extends State<PointsCalculatorScreen> {
     setState(() {
       _controller.clear();
       totalPoints = 0;
+      twoCardCount = 0;
     });
+  }
+
+  int _calculateFinalPoints() {
+    int finalPoints = totalPoints;
+    for (int i = 0; i < twoCardCount; i++) {
+      finalPoints *= 2;
+    }
+    return finalPoints;
   }
 
   @override
@@ -59,29 +80,26 @@ class _PointsCalculatorScreenState extends State<PointsCalculatorScreen> {
       appBar: AppBar(
         title: const Text('Points Calculator'),
       ),
-      body: Container(
-        color: main1, // Set your desired background color here
+      backgroundColor: main1,
+      body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            TextField(
+            InputField(
               controller: _controller,
-              readOnly: true,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Cards',
-              ),
+              labelText: 'Cards',
+              onChanged: (value) {},
             ),
             const SizedBox(height: 10),
-            Text('Total Points: $totalPoints', style: const TextStyle(fontSize: 20)),
+            Text('Total Points: ${_calculateFinalPoints()}', style: const TextStyle(fontSize: 20)),
             const SizedBox(height: 10),
             Wrap(
               spacing: 8.0,
               runSpacing: 8.0,
-              children: cardPoints.keys.map((card) {
-                return ElevatedButton(
+              children: ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'].map((card) {
+                return MenuButton(
+                  label: card,
                   onPressed: () => _addCard(card),
-                  child: Text(card),
                 );
               }).toList(),
             ),
@@ -89,13 +107,13 @@ class _PointsCalculatorScreenState extends State<PointsCalculatorScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(
+                MenuButton(
+                  label: 'Backspace',
                   onPressed: _backspace,
-                  child: const Text('Backspace'),
                 ),
-                ElevatedButton(
+                MenuButton(
+                  label: 'Delete All',
                   onPressed: _deleteAll,
-                  child: const Text('Delete All'),
                 ),
               ],
             ),
