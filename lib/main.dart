@@ -6,6 +6,7 @@ import 'package:gabong_v1/screens/join.dart';
 import 'package:gabong_v1/screens/rules.dart';
 import 'package:gabong_v1/screens/points_calculator.dart';
 import 'package:gabong_v1/screens/waiting_for_players.dart';
+import 'package:gabong_v1/screens/loading.dart'; // Import the LoadingScreen
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -24,7 +25,6 @@ void main() async {
   );
   runApp(const MyApp());
 }
-
 
 ThemeData get theme {
   final theme = ThemeData(
@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
           backgroundColor: main1,
         ),
       ),
-      home: const HomeScreen(),
+      home: const LoadingScreen(), // Set LoadingScreen as the initial screen
       routes: {
         '/home': (context) => const HomeScreen(),
         '/host': (context) => const HostScreen(),
