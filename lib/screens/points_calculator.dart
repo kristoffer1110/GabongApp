@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gabong_v1/main.dart';
 import 'package:gabong_v1/widgets/input_field.dart';
 import 'package:gabong_v1/widgets/menu_button.dart';
+import 'package:gabong_v1/widgets/normal_button.dart';
 
 class PointsCalculatorScreen extends StatefulWidget {
   const PointsCalculatorScreen({Key? key}) : super(key: key);
@@ -97,7 +98,7 @@ class _PointsCalculatorScreenState extends State<PointsCalculatorScreen> {
               spacing: 8.0,
               runSpacing: 8.0,
               children: ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'].map((card) {
-                return MenuButton(
+                return NormalButton(
                   label: card,
                   onPressed: () => _addCard(card),
                 );
@@ -107,11 +108,11 @@ class _PointsCalculatorScreenState extends State<PointsCalculatorScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                MenuButton(
+                NormalButton(
                   label: 'Backspace',
                   onPressed: _backspace,
                 ),
-                MenuButton(
+                NormalButton(
                   label: 'Delete All',
                   onPressed: _deleteAll,
                 ),
