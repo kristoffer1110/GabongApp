@@ -36,11 +36,11 @@ class HomeScreen extends StatelessWidget {
             child: Opacity(
               opacity: 0.5,
               child: Transform.rotate(
-          angle: 3.14159, // 180 degrees in radians
-          child: Image.asset(
-            'assets/background_image.gif',
-            fit: BoxFit.cover,
-          ),
+                angle: 3.14159, // 180 degrees for correct image
+                child: Image.asset(
+                  'assets/background_image.gif',
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
@@ -64,14 +64,10 @@ class HomeScreen extends StatelessWidget {
                   child: Image.asset('assets/gabong_logo.png', height: 250),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'GABONG!',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                      fontSize: 50,
-                      color: Theme.of(context).colorScheme.tertiary,
-                    ),
+                  padding: const EdgeInsets.symmetric(vertical: 1.0), // Reduced padding
+                  child: Image.asset(
+                    'assets/gabong_text.png',
+                    height: 250,
                   ),
                 ),
                 Expanded(
