@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gabong_v1/main.dart';
 import 'package:gabong_v1/widgets/input_field.dart';
 import 'package:gabong_v1/widgets/menu_button.dart';
+import 'package:gabong_v1/widgets/scaffold.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -21,11 +22,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return GradientScaffold(
       appBar: AppBar(
         title: Text('Register'),
       ),
-      backgroundColor: main1, 
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),

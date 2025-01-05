@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gabong_v1/widgets/scaffold.dart';
 
 class RulesScreen extends StatefulWidget {
   const RulesScreen({super.key});
@@ -13,9 +14,7 @@ class _RulesScreenState extends State<RulesScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Scaffold(
-
-      backgroundColor: theme.colorScheme.primary,
+    return GradientScaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
         backgroundColor: theme.colorScheme.primary,

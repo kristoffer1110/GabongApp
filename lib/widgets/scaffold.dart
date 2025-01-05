@@ -16,7 +16,15 @@ class GradientScaffold extends StatelessWidget {
               backgroundColor: Colors.transparent,
               elevation: 0,
               title: appBar!.title,
-              actions: appBar!.actions,
+              actions: [
+                ...?appBar!.actions,
+                IconButton(
+                  icon: Icon(Icons.home),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/home');
+                  },
+                ),
+              ],
               leading: appBar!.leading,
             )
           : null,

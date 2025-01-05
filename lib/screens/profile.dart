@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gabong_v1/main.dart';
 import 'package:gabong_v1/widgets/menu_button.dart';
+import 'package:gabong_v1/widgets/scaffold.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -14,12 +15,11 @@ class ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return GradientScaffold(
       appBar: AppBar(
         title: const Text('Profile'),
       ),
       body: Container(
-        color: main1,
         padding: const EdgeInsets.all(16.0),
         child: isLoggedIn
             ? Column(

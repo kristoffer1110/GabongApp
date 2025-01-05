@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gabong_v1/main.dart';
 import 'package:gabong_v1/widgets/input_field.dart';
 import 'package:gabong_v1/widgets/normal_button.dart';
+import 'package:gabong_v1/widgets/scaffold.dart';
 
 class PointsCalculatorScreen extends StatefulWidget {
   const PointsCalculatorScreen({Key? key}) : super(key: key);
@@ -76,11 +77,10 @@ class _PointsCalculatorScreenState extends State<PointsCalculatorScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return GradientScaffold(
       appBar: AppBar(
         title: const Text('Points Calculator'),
       ),
-      backgroundColor: main1,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
