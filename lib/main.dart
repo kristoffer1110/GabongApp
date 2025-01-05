@@ -6,7 +6,9 @@ import 'package:gabong_v1/screens/join.dart';
 import 'package:gabong_v1/screens/rules.dart';
 import 'package:gabong_v1/screens/points_calculator.dart';
 import 'package:gabong_v1/screens/waiting_for_players.dart';
-import 'package:gabong_v1/screens/loading.dart'; // Import the LoadingScreen
+import 'package:gabong_v1/screens/loading.dart';
+import 'package:gabong_v1/screens/profile.dart';
+import 'package:gabong_v1/screens/settings.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -61,6 +63,8 @@ class MyApp extends StatelessWidget {
         '/join': (context) => const JoinScreen(),
         '/rules': (context) => const RulesScreen(),
         '/calculator': (context) => const PointsCalculatorScreen(),
+        '/settings': (context) => SettingsScreen(),
+        '/profile': (context) => ProfileScreen(),
         '/waitingForPlayers': (context) {
           final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
           return WaitingForPlayers(gameID: args['gameID'], isHost: args['isHost'], playerName: args['playerName']);
