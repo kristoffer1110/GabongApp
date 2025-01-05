@@ -9,6 +9,7 @@ import 'package:gabong_v1/screens/waiting_for_players.dart';
 import 'package:gabong_v1/screens/loading.dart';
 import 'package:gabong_v1/screens/profile.dart';
 import 'package:gabong_v1/screens/settings.dart';
+import 'package:gabong_v1/screens/register.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -65,6 +66,7 @@ class MyApp extends StatelessWidget {
         '/calculator': (context) => const PointsCalculatorScreen(),
         '/settings': (context) => SettingsScreen(),
         '/profile': (context) => ProfileScreen(),
+        '/register': (context) => RegisterScreen(),
         '/waitingForPlayers': (context) {
           final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
           return WaitingForPlayers(gameID: args['gameID'], isHost: args['isHost'], playerName: args['playerName']);

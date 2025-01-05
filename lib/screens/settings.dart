@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:gabong_v1/main.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
+
+  @override
+  _SettingsScreenState createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
+  bool _sound = true;
+  bool _music = true;
+  bool _notifications = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,9 +26,11 @@ class SettingsScreen extends StatelessWidget {
             title: const Text('Sound'),
             trailing: Switch(
               activeColor: secondary2,
-              value: true,
+              value: _sound,
               onChanged: (bool value) {
-                // Handle sound setting change
+                setState(() {
+                  _sound = value;
+                });
               },
             ),
           ),
@@ -26,9 +38,11 @@ class SettingsScreen extends StatelessWidget {
             title: const Text('Music'),
             trailing: Switch(
               activeColor: secondary2,
-              value: true,
+              value: _music,
               onChanged: (bool value) {
-                // Handle music setting change
+                setState(() {
+                  _music = value;
+                });
               },
             ),
           ),
@@ -36,9 +50,11 @@ class SettingsScreen extends StatelessWidget {
             title: const Text('Notifications'),
             trailing: Switch(
               activeColor: secondary2,
-              value: true,
+              value: _notifications,
               onChanged: (bool value) {
-                // Handle notifications setting change
+                setState(() {
+                  _notifications = value;
+                });
               },
             ),
           ),
