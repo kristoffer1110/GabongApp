@@ -64,8 +64,8 @@ class MyApp extends StatelessWidget {
         '/join': (context) => const JoinScreen(),
         '/rules': (context) => const RulesScreen(),
         '/calculator': (context) => const PointsCalculatorScreen(),
-        '/settings': (context) => SettingsScreen(),
-        '/profile': (context) => ProfileScreen(),
+        '/settings': (context) => const SettingsScreen(),
+        '/profile': (context) => const ProfileScreen(),
         '/register': (context) => RegisterScreen(),
         '/waitingForPlayers': (context) {
           final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;

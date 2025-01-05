@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gabong_v1/main.dart';
+import 'package:gabong_v1/widgets/scaffold.dart'; // Import the GradientScaffold
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -15,11 +16,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return GradientScaffold(
       appBar: AppBar(
         title: const Text('Settings'),
       ),
-      backgroundColor: main1, // Add background color here
       body: ListView(
         children: <Widget>[
           ListTile(
@@ -63,7 +63,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             trailing: DropdownButton<String>(
               value: 'English',
               onChanged: (String? newValue) {
-                // Handle language setting change
+                // Language setting handling here (When added)
               },
               items: <String>['English', 'Spanish', 'French', 'German']
                   .map<DropdownMenuItem<String>>((String value) {

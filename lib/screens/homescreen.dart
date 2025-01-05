@@ -32,27 +32,27 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          // Positioned.fill(
-          //   child: Opacity(
-          //     opacity: 0.5,
-          //     child: Transform.rotate(
-          // angle: 3.14159, // 180 degrees in radians
-          // child: Image.asset(
-          //   'assets/background_image.gif',
-          //   fit: BoxFit.cover,
-          // ),
-          //     ),
-          //   ),
-          // ),
+          Positioned.fill(
+            child: Opacity(
+              opacity: 0.5,
+              child: Transform.rotate(
+          angle: 3.14159, // 180 degrees in radians
+          child: Image.asset(
+            'assets/background_image.gif',
+            fit: BoxFit.cover,
+          ),
+              ),
+            ),
+          ),
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
                 colors: [
-                  main1, secondary1
-                  // main1.withOpacity(0.9),
-                  // secondary1.withOpacity(0.9),
+                  // main1, secondary1
+                  main1.withOpacity(0.9),
+                  secondary1.withOpacity(0.9),
                 ],
               ),
             ),

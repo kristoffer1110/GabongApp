@@ -14,7 +14,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _passwordController = TextEditingController();
 
   void _register() {
-    // Handle registration logic here
     print('Username: ${_usernameController.text}');
     print('Email: ${_emailController.text}');
     print('Password: ${_passwordController.text}');
@@ -26,12 +25,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
       appBar: AppBar(
         title: Text('Register'),
       ),
-      backgroundColor: main1, // Set the background color here
+      backgroundColor: main1, 
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            mainAxisSize: MainAxisSize.min, // Center the column vertically
+            mainAxisSize: MainAxisSize.min, 
             children: [
               Text(
                 'Join the Gabong Club Today!',
