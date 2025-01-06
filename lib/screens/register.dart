@@ -4,6 +4,8 @@ import 'package:gabong_v1/widgets/input_field.dart';
 import 'package:gabong_v1/widgets/menu_button.dart';
 import 'package:gabong_v1/widgets/scaffold.dart';
 
+// Dont really work yet, no backend for register
+
 class RegisterScreen extends StatefulWidget {
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
