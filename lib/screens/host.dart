@@ -4,6 +4,8 @@ import 'package:gabong_v1/widgets/input_field.dart';
 import 'package:gabong_v1/widgets/menu_button.dart';
 import 'dart:math';
 
+import 'package:gabong_v1/widgets/scaffold.dart';
+
 class HostScreen extends StatefulWidget {
   const HostScreen({super.key});
 
@@ -89,11 +91,10 @@ class _HostScreenState extends State<HostScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Scaffold(
+    return GradientScaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
       ),
-      backgroundColor: theme.colorScheme.primary,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

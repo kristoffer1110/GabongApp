@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gabong_v1/widgets/scaffold.dart';
 import '../widgets/input_field.dart';
 import '../widgets/menu_button.dart';
 
@@ -62,12 +63,11 @@ class _JoinScreenState extends State<JoinScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Scaffold(
+    return GradientScaffold(
       appBar: AppBar(
         title: const Text('Join Game'),
         backgroundColor: theme.colorScheme.primary,
       ),
-      backgroundColor: theme.colorScheme.primary,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
