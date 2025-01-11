@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:gabong_v1/screens/game.dart';
 import 'package:gabong_v1/screens/homescreen.dart';
-import 'package:gabong_v1/screens/host.dart';
-import 'package:gabong_v1/screens/join.dart';
 import 'package:gabong_v1/screens/rules.dart';
 import 'package:gabong_v1/screens/points_calculator.dart';
-import 'package:gabong_v1/screens/waiting_for_players.dart';
+
 import 'package:gabong_v1/screens/loading.dart';
 import 'package:gabong_v1/screens/profile.dart';
 import 'package:gabong_v1/screens/settings.dart';
 import 'package:gabong_v1/screens/register.dart';
+
+import 'package:gabong_v1/screens/online/game.dart';
+import 'package:gabong_v1/screens/online/host.dart';
+import 'package:gabong_v1/screens/online/join.dart';
+import 'package:gabong_v1/screens/online/waiting_for_players.dart';
+
+import 'package:gabong_v1/screens/local/local_select_gamemode.dart';
+import 'package:gabong_v1/screens/local/local_add_players.dart';
+import 'package:gabong_v1/screens/local/local_gamescreen.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -60,13 +67,15 @@ class MyApp extends StatelessWidget {
       home: const LoadingScreen(), // Set LoadingScreen as the initial screen
       routes: {
         '/home': (context) => const HomeScreen(),
-        '/host': (context) => const HostScreen(),
-        '/join': (context) => const JoinScreen(),
         '/rules': (context) => const RulesScreen(),
         '/calculator': (context) => const PointsCalculatorScreen(),
         '/settings': (context) => const SettingsScreen(),
         '/profile': (context) => const ProfileScreen(),
         '/register': (context) => RegisterScreen(),
+
+        // Online
+        '/host': (context) => const HostScreen(),
+        '/join': (context) => const JoinScreen(),
         '/waitingForPlayers': (context) {
           final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
           return WaitingForPlayers(gameID: args['gameID'], isHost: args['isHost'], playerName: args['playerName']);
@@ -74,7 +83,19 @@ class MyApp extends StatelessWidget {
         '/game': (context) {
           final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
           return GameScreen(gameID: args['gameID'], isHost: args['isHost'], playerName: args['playerName']);
-        }
+        },
+
+        // Local
+        '/localSelectGamemode': (context) => const LocalSelectGamemode(),
+        '/localAddPlayers': (context) {
+          final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+          return LocalAddPlayers(gameMode: args['gamemode'], limit: args['limit']);
+        },
+
+        '/localGame': (context) {
+          final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+          return LocalGameScreen(gameMode: args['gamemode'], limit: args['limit'], players: args['players']);
+        },
       },
     );
   }

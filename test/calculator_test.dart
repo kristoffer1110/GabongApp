@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gabong_v1/widgets/input_field.dart';
 import 'package:gabong_v1/widgets/normal_button.dart';
-import 'package:gabong_v1/widgets/scaffold.dart';
-import 'package:gabong_v1/main.dart';
 import 'package:gabong_v1/screens/points_calculator.dart';
 
 void main() {

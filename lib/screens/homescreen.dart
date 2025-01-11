@@ -17,13 +17,13 @@ class HomeScreen extends StatelessWidget {
         elevation: 0,
         actions: [
           IconButton(
-            icon: Icon(Icons.settings),
+            icon: const Icon(Icons.settings),
             onPressed: () {
               Navigator.pushNamed(context, '/settings');
             },
           ),
           IconButton(
-            icon: Icon(Icons.person),
+            icon: const Icon(Icons.person),
             onPressed: () {
               Navigator.pushNamed(context, '/profile');
             },
@@ -95,7 +95,7 @@ class HomeScreen extends StatelessWidget {
                 MenuButton(
                   label: 'Play Local',
                   onPressed: () {
-                    Navigator.pushNamed(context, '/play');
+                    Navigator.pushNamed(context, '/local_select_gamemode');
                   },
                 ),
                 Expanded(

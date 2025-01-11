@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gabong_v1/main.dart';
-import 'package:gabong_v1/widgets/scaffold.dart'; // Import the GradientScaffold
+import 'package:gabong_v1/widgets/scaffold.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);

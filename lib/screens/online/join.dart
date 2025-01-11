@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:gabong_v1/widgets/input_field.dart';
+import 'package:gabong_v1/widgets/menu_button.dart';
 import 'package:gabong_v1/widgets/scaffold.dart';
-import '../widgets/input_field.dart';
-import '../widgets/menu_button.dart';
+
 
 class JoinScreen extends StatefulWidget {
   const JoinScreen({super.key});
@@ -38,7 +39,7 @@ class _JoinScreenState extends State<JoinScreen> {
     if (gameDoc.exists) {
       await FirebaseFirestore.instance.collection('games').doc(gameID).update({
         'players': FieldValue.arrayUnion([playerName]),
-        'scores.$playerName': [],
+        'scores.$playerName': 0,
       });
 
       Navigator.pushNamed(
@@ -62,17 +63,23 @@ class _JoinScreenState extends State<JoinScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return GradientScaffold(
       appBar: AppBar(
-        title: const Text('Join Game'),
-        backgroundColor: theme.colorScheme.primary,
+        automaticallyImplyLeading: true
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Text(
+              'Join Game',
+              style: TextStyle(
+                fontWeight: FontWeight.w900,
+                fontSize: 30,
+                color: Colors.white,
+              ),
+            ),
             InputField(
               controller: _nameController,
               labelText: 'Enter your name',
