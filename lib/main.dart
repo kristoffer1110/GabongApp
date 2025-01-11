@@ -8,6 +8,7 @@ import 'package:gabong_v1/screens/points_calculator.dart';
 import 'package:gabong_v1/screens/waiting_for_players.dart';
 import 'package:gabong_v1/screens/local/local_select_gamemode.dart';
 import 'package:gabong_v1/screens/local/local_add_players.dart';
+import 'package:gabong_v1/screens/local/local_gamescreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -78,6 +79,11 @@ class MyApp extends StatelessWidget {
         '/game': (context) {
           final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
           return GameScreen(gameID: args['gameID'], isHost: args['isHost'], playerName: args['playerName']);
+        },
+
+        '/localGame': (context) {
+          final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+          return LocalGameScreen(gameMode: args['gamemode'], limit: args['limit'], players: args['players']);
         },
       },
     );

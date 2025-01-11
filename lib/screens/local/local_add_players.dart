@@ -33,6 +33,16 @@ class _LocalAddPlayersState extends State<LocalAddPlayers> {
   void _addPlayer() {
     setState(() {
       if (_nameController.text.isNotEmpty) {
+        if (_players.contains(_nameController.text)) {
+          _nameController.clear();
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Player name is already entered'),
+              duration: Duration(seconds: 2),
+            ),
+          );
+          return;
+        }
         _players.add(_nameController.text);
         _nameController.clear();
       }
@@ -54,8 +64,12 @@ class _LocalAddPlayersState extends State<LocalAddPlayers> {
     _players.isNotEmpty ? 
     Navigator.pushNamed(
       context, 
-      '/local_game',
-      arguments: {'players': _players}
+      '/localGame',
+      arguments: {
+            'gamemode': widget.gameMode,
+            'limit': widget.limit,
+            'players': _players
+          }
     )
     : null;
   }
@@ -90,7 +104,10 @@ class _LocalAddPlayersState extends State<LocalAddPlayers> {
                     return Row(
                       children: [
                         TextContainer(
-                          text: player,
+                          text: Text(player,
+                            style: const TextStyle(color: Colors.black)),
+                          containerColor: theme.colorScheme.secondary,
+                          icon: const Icon(Icons.person, color: Colors.black),
                         ),
                         IconButton(
                           icon: const Icon(Icons.delete, color: Colors.red),
