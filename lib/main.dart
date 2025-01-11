@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gabong_v1/screens/game.dart';
+import 'package:gabong_v1/screens/online/game.dart';
 import 'package:gabong_v1/screens/homescreen.dart';
-import 'package:gabong_v1/screens/host.dart';
-import 'package:gabong_v1/screens/join.dart';
+import 'package:gabong_v1/screens/online/host.dart';
+import 'package:gabong_v1/screens/online/join.dart';
 import 'package:gabong_v1/screens/rules.dart';
 import 'package:gabong_v1/screens/points_calculator.dart';
-import 'package:gabong_v1/screens/waiting_for_players.dart';
+import 'package:gabong_v1/screens/online/waiting_for_players.dart';
 import 'package:gabong_v1/screens/local/local_select_gamemode.dart';
 import 'package:gabong_v1/screens/local/local_add_players.dart';
 import 'package:gabong_v1/screens/local/local_gamescreen.dart';

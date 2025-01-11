@@ -13,37 +13,28 @@ class HostScreen extends StatefulWidget {
 
 class _HostScreenState extends State<HostScreen> {
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _pointLimitController = TextEditingController();
-  final TextEditingController _roundLimitController = TextEditingController();
+  final TextEditingController _limitController = TextEditingController();
   bool _isButtonEnabled = false;
   String _selectedOption = 'Point Limit';
-  int _pointLimit = 0;
-  int _roundLimit = 0;
+  int _limit = 0;
 
   @override
   void initState() {
     super.initState();
     _nameController.addListener(_checkInputs);
+    _limitController.addListener(_checkInputs);
   }
 
   void _checkInputs() {
     setState(() {
-      _isButtonEnabled = _nameController.text.isNotEmpty &&
-          ((_selectedOption == 'Point Limit' && _pointLimit > 0) ||
-              (_selectedOption == 'Round Limit' && _roundLimit > 0));
+      _isButtonEnabled = 
+      _nameController.text.isNotEmpty && _limitController.text.isNotEmpty;
     });
   }
 
-  void _setPointLimit(String value) {
+  void _setLimit(String value) {
     setState(() {
-      _pointLimit = int.tryParse(value) ?? 0;
-      _checkInputs();
-    });
-  }
-
-  void _setRoundLimit(String value) {
-    setState(() {
-      _roundLimit = int.tryParse(value) ?? 0;
+      _limit = int.tryParse(value) ?? 0;
       _checkInputs();
     });
   }
@@ -61,11 +52,11 @@ class _HostScreenState extends State<HostScreen> {
     await FirebaseFirestore.instance.collection('games').doc(pin).set({
       'host': playerName,
       'players': [playerName],
-      'scores': {playerName: []},
+      'scores': {playerName: 0},
+      'scoreInputs': {playerName: []},
 
       'gameMode' : _selectedOption,
-      'pointLimit': _selectedOption == 'Point Limit' ? _pointLimit : null,
-      'roundLimit': _selectedOption == 'Round Limit' ? _roundLimit : null,
+      'limit': _limit,
   
       'currentRound': 1,
       'gameStarted': false,
@@ -81,8 +72,7 @@ class _HostScreenState extends State<HostScreen> {
   @override
   void dispose() {
     _nameController.dispose();
-    _pointLimitController.dispose();
-    _roundLimitController.dispose();
+    _limitController.dispose();
     super.dispose();
   }
 
@@ -108,9 +98,17 @@ class _HostScreenState extends State<HostScreen> {
               ),
             ),
             const SizedBox(height: 20),
+            Text('Enter your name:',
+              style: TextStyle(
+                color: theme.colorScheme.tertiary,
+                fontSize: 24,
+                fontWeight: FontWeight.bold
+              ),
+            ),
+            const SizedBox(height: 10),
             InputField(
               controller: _nameController,
-              labelText: 'Enter your name',
+              labelText: 'Name of Host',
             ),
             const SizedBox(height: 20),
             Column(
@@ -126,17 +124,10 @@ class _HostScreenState extends State<HostScreen> {
                         _checkInputs();
                       });
                     },
-                    activeColor: theme.colorScheme.tertiary, // Set the active color to tertiary
-                    fillColor: WidgetStateProperty.all(theme.colorScheme.tertiary), // Set the fill color to tertiary
+                    activeColor: theme.colorScheme.tertiary,
+                    fillColor: WidgetStateProperty.all(theme.colorScheme.tertiary),
                   ),
                 ),
-                if (_selectedOption == 'Point Limit')
-                  InputField(
-                    controller: _pointLimitController,
-                    labelText: 'Set Point Limit',
-                    keyboardType: TextInputType.number,
-                    onChanged: _setPointLimit,
-                  ),
                 ListTile(
                   title: const Text('Round Limit'),
                   leading: Radio<String>(
@@ -148,17 +139,17 @@ class _HostScreenState extends State<HostScreen> {
                         _checkInputs();
                       });
                     },
-                    activeColor: theme.colorScheme.tertiary, // Set the active color to tertiary
-                    fillColor: WidgetStateProperty.all(theme.colorScheme.tertiary), // Set the fill color to tertiary
+                    activeColor: theme.colorScheme.tertiary,
+                    fillColor: WidgetStateProperty.all(theme.colorScheme.tertiary),
                   ),
                 ),
-                if (_selectedOption == 'Round Limit')
-                  InputField(
-                    controller: _roundLimitController,
-                    labelText: 'Set Round Limit',
-                    keyboardType: TextInputType.number,
-                    onChanged: _setRoundLimit,
-                  ),
+                const SizedBox(height: 16),
+                InputField(
+                  controller: _limitController,
+                  labelText: 'Enter Limit',
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) => _setLimit(value),
+                ),
               ],
             ),
             const SizedBox(height: 20),
