@@ -64,8 +64,7 @@ class _JoinScreenState extends State<JoinScreen> {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Join Game'),
-        backgroundColor: theme.colorScheme.primary,
+        automaticallyImplyLeading: true
       ),
       backgroundColor: theme.colorScheme.primary,
       body: Padding(
@@ -73,6 +72,14 @@ class _JoinScreenState extends State<JoinScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Text(
+              'Join Game',
+              style: TextStyle(
+                fontWeight: FontWeight.w900,
+                fontSize: 30,
+                color: Colors.white,
+              ),
+            ),
             InputField(
               controller: _nameController,
               labelText: 'Enter your name',

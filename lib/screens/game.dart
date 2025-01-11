@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:gabong_v1/widgets/menu_button.dart';
 import 'package:gabong_v1/widgets/circular_icon_button.dart';
+import 'package:gabong_v1/widgets/menu_button.dart';
 import 'package:gabong_v1/widgets/input_field.dart';
-
+import 'package:gabong_v1/widgets/point_table/point_table.dart';
 
 class GameScreen extends StatefulWidget {
   final String gameID;
@@ -11,7 +11,7 @@ class GameScreen extends StatefulWidget {
   final String playerName;
 
   const GameScreen({super.key, required this.gameID, required this.isHost, required this.playerName});
-  
+
   @override
   _GameScreenState createState() => _GameScreenState();
 }
@@ -52,37 +52,47 @@ class _GameScreenState extends State<GameScreen> {
     final playerScores = scores[widget.playerName] as List<dynamic>;
     return playerScores;
   }
-  
+
+  Future<int> _getCurrentRound() async {
+    final gameDoc = await FirebaseFirestore.instance.collection('games').doc(widget.gameID).get();
+    final gameData = gameDoc.data() as Map<String, dynamic>;
+    final currentRound = gameData['currentRound'] as int;
+    return currentRound;
+  }
+
+
   void _addScore(scoreInputController) async {
+    final playerName = widget.playerName;
+    final gameDocRef = FirebaseFirestore.instance.collection('games').doc(widget.gameID);
+    final scoreInput = int.tryParse(scoreInputController.text);
+    final currentRound = await _getCurrentRound();
     List<dynamic> playerScores = await _getPlayerScores();
-    final roundScore = int.tryParse(scoreInputController.text);
 
-    int? currentScore;
-    if (playerScores.isEmpty){
-      currentScore = roundScore;
-    }
-    else{
-      currentScore = playerScores[playerScores.length - 1] + roundScore;
-    }
-
-    if (currentScore != null && currentScore % 100 == 0){
-      currentScore = currentScore ~/ 2;
-    }
-
-    if (currentScore != null) {
-      final playerName = widget.playerName;
-      final gameDocRef = FirebaseFirestore.instance.collection('games').doc(widget.gameID);
-      gameDocRef.update({
-        'scores.$playerName': FieldValue.arrayUnion([currentScore]),
-      });
-      scoreInputController.clear();
-    }
-
-    else{
+    if (scoreInput == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please enter a valid number')),
       );
+      return;
     }
+
+    if (playerScores.length == currentRound) {
+      playerScores.removeLast();
+    }
+
+    int currentScore = playerScores.isNotEmpty ? playerScores.last : 0;
+    playerScores.add(currentScore + scoreInput);
+    currentScore = playerScores.last;
+
+    if (currentScore % 100 == 0) {
+      currentScore = currentScore ~/ 2;
+      playerScores[currentRound - 1] = currentScore;
+    }
+
+    await gameDocRef.update({
+      'scores.$playerName': playerScores,
+    });
+
+    scoreInputController.clear();
   }
 
   Future<bool> _isGameFinished() async {
@@ -123,7 +133,6 @@ class _GameScreenState extends State<GameScreen> {
     if (players.length == 1){
       return true;
     }
-
     return false;
   }
 
@@ -174,6 +183,10 @@ class _GameScreenState extends State<GameScreen> {
   void _advanceToNextRound() async {
     final gameDocRef = FirebaseFirestore.instance.collection('games').doc(widget.gameID);
     final gameDoc = await gameDocRef.get();
+    if (!gameDoc.exists) {
+      return;
+    }    
+    
     final gameData = gameDoc.data() as Map<String, dynamic>;
     final currentRound = gameData['currentRound'] as int;
 
@@ -202,181 +215,99 @@ class _GameScreenState extends State<GameScreen> {
         automaticallyImplyLeading: false,
       ),
       backgroundColor: theme.colorScheme.primary,
-      body: StreamBuilder<DocumentSnapshot> (
-        stream: FirebaseFirestore.instance
-          .collection('games')
-          .doc(widget.gameID)
-          .snapshots(),
+      body: StreamBuilder<DocumentSnapshot>(
+        stream: FirebaseFirestore.instance.collection('games').doc(widget.gameID).snapshots(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
 
-          if (!snapshot.hasData || !snapshot.data!.exists) {
+          if (!snapshot.hasData || snapshot.data == null) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          if (!snapshot.data!.exists) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
             });
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: Text('Game has ended.'));
           }
 
           final gameData = snapshot.data!.data() as Map<String, dynamic>;
           final players = gameData['players'] as List<dynamic>;
           final scores = gameData['scores'] as Map<String, dynamic>;
-          final int maxRounds = scores.values.map((e) => e.length).fold(0, (prev, next) => next > prev ? next : prev);
+          final int currentRound = gameData['currentRound'] as int;
           final scoreInputController = TextEditingController();
 
           return Padding(
-          padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        'Round ${gameData['currentRound']}',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      ),
+                    Text(
+                      'ID: ${widget.gameID}',
+                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     ),
-                    Align (
-                      alignment: Alignment.topCenter,
-                      child: Text(
-                        _getGameModeText(gameData),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: Text(
-                        'ID: ${widget.gameID}',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      ),
+                    Text(
+                      _getGameModeText(gameData),
+                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
                     ),
                   ],
                 ),
-                Row(
-                  children: [
-                    const Expanded(
-                      flex: 1,
-                      child: Text(
-                        'Player',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Row(
-                        children: List.generate(maxRounds, (index) {
-                          return Expanded(
-                            child: Text(
-                              'Round ${index + 1}',
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            ),
-                          );
-                        }),
-                      ),
-                    ),
-                  ],
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: players.length,
-                    itemBuilder: (context, index) {
-                    final player = players[index];
-                    final playerScores = scores[player] as List<dynamic>;
-                    return Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: ListTile(
-                            title: Text(player),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: Row(
-                            children: List.generate(playerScores.length, (scoreIndex) {
-                              return Expanded(
-                                child: Text(
-                                  playerScores[scoreIndex].toString(),
-                                  textAlign: TextAlign.center,
-                                  ),
-                                );
-                              }),
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
+                const SizedBox(height: 8),
+                PointTable(
+                  currentRound: currentRound,
+                  players: players,
+                  scores: scores,
+                  height: 400
                 ),
                 Row(
                   children: [
                     Expanded(
                       child: InputField(
-                        controller: scoreInputController, 
+                        controller: scoreInputController,
                         labelText: 'Your Score',
-                        ),
-                    ),
-                    Expanded(
-                      child: MenuButton(
-                        label: 'Set Round Score', 
-                        onPressed: () { 
-                          _addScore(scoreInputController);
-                         },  
                       ),
-                    )
-                  ]
+                    ),
+                    MenuButton(
+                      label: 'Set Round Score',
+                      onPressed: () {
+                        _addScore(scoreInputController);
+                      },
+                    ),
+                  ],
                 ),
-                
-                Expanded(
-                  child: MenuButton(
+                if (widget.isHost)
+                  MenuButton(
                     label: 'Next Round',
                     onPressed: _advanceToNextRound,
                   ),
-                ),
                 Expanded(
                   child: Stack(
                     children: [
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: CircularIconButton(
-                          icon: Icons.calculate, 
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/calculator');
-                          },
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: MenuButton(
-                          label: widget.isHost ? 'End Game' : 'Leave Game',
-                          onPressed: widget.isHost ? _endGame : _leaveGame,
-                        ),
-                      ),
                       Align(
                         alignment: Alignment.bottomLeft,
                         child: CircularIconButton(
                           icon: Icons.book, 
                           onPressed: () {
                             Navigator.pushNamed(context, '/rules');
+                          },
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: widget.isHost
+                            ? MenuButton(label: 'End Game', onPressed: _endGame)
+                            : MenuButton(label: 'Leave Game', onPressed: _leaveGame),
+                      ),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: CircularIconButton(
+                          icon: Icons.calculate, 
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/calculator');
                           },
                         ),
                       ),
@@ -391,3 +322,4 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 }
+
