@@ -10,7 +10,7 @@ void main() {
   testWidgets('PointsCalculatorScreen test', (WidgetTester tester) async {
     await tester.pumpWidget(MaterialApp(home: PointsCalculatorScreen(),),);
 
-    // That is loads in properly
+    // That is loads in correctly
     expect(find.text('Total Points: 0'), findsOneWidget);
     expect(find.byType(InputField), findsOneWidget);
     // Find all buttons (13 numbers + backspace + delete all)
