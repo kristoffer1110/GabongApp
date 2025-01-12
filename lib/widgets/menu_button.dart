@@ -37,19 +37,7 @@ class _MenuButtonState extends State<MenuButton> with SingleTickerProviderStateM
     super.dispose();
   }
 
-  void _handlePress() async {
-    if (widget.enabled && widget.onPressed != null) {
-      setState(() {
-        _isLoading = true;
-      });
-      _controller.forward().then((_) => _controller.reverse());
-      await Future.delayed(const Duration(seconds: 1)); // Simulate a delay
-      widget.onPressed!();
-      setState(() {
-        _isLoading = false;
-      });
-    }
-  }
+  void _handlePress() { if (widget.enabled && widget.onPressed != null) { _controller.forward().then((_) => _controller.reverse()); widget.onPressed!(); } }
 
   @override
   Widget build(BuildContext context) {
