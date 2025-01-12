@@ -95,7 +95,7 @@ class HomeScreen extends StatelessWidget {
                 MenuButton(
                   label: 'Play Local',
                   onPressed: () {
-                    Navigator.pushNamed(context, '/local_select_gamemode');
+                    Navigator.pushNamed(context, '/localSelectGamemode');
                   },
                 ),
                 Expanded(
