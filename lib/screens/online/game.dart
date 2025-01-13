@@ -206,8 +206,8 @@ class _GameScreenState extends State<GameScreen> {
     final theme = Theme.of(context);
 
     return GradientScaffold(
+      automaticallyImplyLeading: false,
       appBar: AppBar(
-        automaticallyImplyLeading: false,
       ),
       body: StreamBuilder<DocumentSnapshot>(
         stream: _getGameStream(),

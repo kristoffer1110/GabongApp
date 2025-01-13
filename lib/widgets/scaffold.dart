@@ -4,8 +4,14 @@ import 'package:gabong_v1/main.dart';
 class GradientScaffold extends StatelessWidget {
   final Widget body;
   final AppBar? appBar;
+  final bool automaticallyImplyLeading;
 
-  const GradientScaffold({Key? key, required this.body, this.appBar}) : super(key: key);
+  const GradientScaffold({
+    Key? key,
+    required this.body,
+    this.appBar,
+    this.automaticallyImplyLeading = true, // Default to true
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,20 +22,21 @@ class GradientScaffold extends StatelessWidget {
               backgroundColor: Colors.transparent,
               elevation: 0,
               title: appBar!.title,
-              actions: [
-                ...?appBar!.actions,
-                IconButton(
-                  icon: Icon(Icons.home),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/home');
-                  },
-                ),
-              ],
+              // actions: [
+              //   ...?appBar!.actions,
+              //   IconButton(
+              //     icon: const Icon(Icons.home),
+              //     onPressed: () {
+              //       Navigator.pushNamed(context, '/home');
+              //     },
+              //   ),
+              // ],
               leading: appBar!.leading,
+              automaticallyImplyLeading: automaticallyImplyLeading, // Use the parameter
             )
           : null,
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [main1, secondary1],
             begin: Alignment.topRight,

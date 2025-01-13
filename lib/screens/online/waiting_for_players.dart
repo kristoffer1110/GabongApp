@@ -52,8 +52,8 @@ class _WaitingForPlayersState extends State<WaitingForPlayers> {
     final theme = Theme.of(context);
 
     return GradientScaffold(
+      automaticallyImplyLeading: false,
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         title: const Text(
           'Waiting for Players',
           style: TextStyle(
